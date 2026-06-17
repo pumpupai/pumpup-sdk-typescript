@@ -3,7 +3,20 @@
     "generatorName": "fernapi/fern-typescript-sdk",
     "generatorVersion": "3.72.5",
     "generatorConfig": {
-        "namespaceExport": "PumpUp"
+        "namespaceExport": "PumpUp",
+        "packageJson": {
+            "description": "Official SDK for the Pump Up agent API — human-in-the-loop approvals, elicitations, and routing for AI agents.",
+            "author": {
+                "name": "Pump Up",
+                "email": "dev@pumpup.com",
+                "url": "https://pumpup.com"
+            },
+            "homepage": "https://pumpup.com",
+            "keywords": ["hitl", "human-in-the-loop", "ai-agents", "agents", "approvals", "llm", "sdk"],
+            "bugs": {
+                "url": "https://github.com/pumpupai/pumpup-sdk-typescript/issues"
+            }
+        }
     },
     "originGitCommit": "d8414f398efe75330a371e2c6784f7a5f3aec3a2",
     "originGitCommitIsDirty": true,
