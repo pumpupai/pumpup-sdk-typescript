@@ -110,7 +110,7 @@
         "test": "vitest",
         "test:unit": "vitest --project unit",
         "test:wire": "vitest --project wire",
-        "prepare": "tsc --project ./tsconfig.cjs.json && tsc --project ./tsconfig.esm.json && node scripts/rename-to-esm-files.js dist/esm"
+        "prepare": "npm run build:cjs && npm run build:esm"
     },
     "dependencies": {},
     "devDependencies": {
