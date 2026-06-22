@@ -40,7 +40,8 @@ export class ApprovalsClient {
      *     await client.approvals.create({
      *         "Idempotency-Key": "Idempotency-Key",
      *         projectName: "claims_refund_v1",
-     *         summary: "Refund $240 on claim C-1029"
+     *         summary: "Refund $240 on claim C-1029",
+     *         taskId: "taskId"
      *     })
      */
     public create(
@@ -132,14 +133,14 @@ export class ApprovalsClient {
     public getResult(
         request: PumpUp.ApprovalsGetResultRequest,
         requestOptions?: ApprovalsClient.RequestOptions,
-    ): core.HttpResponsePromise<PumpUp.ApprovalResult> {
+    ): core.HttpResponsePromise<PumpUp.ApprovalResult | undefined> {
         return core.HttpResponsePromise.fromPromise(this.__getResult(request, requestOptions));
     }
 
     private async __getResult(
         request: PumpUp.ApprovalsGetResultRequest,
         requestOptions?: ApprovalsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<PumpUp.ApprovalResult>> {
+    ): Promise<core.WithRawResponse<PumpUp.ApprovalResult | undefined>> {
         const { id } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -165,7 +166,7 @@ export class ApprovalsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as PumpUp.ApprovalResult, rawResponse: _response.rawResponse };
+            return { data: _response.body as PumpUp.ApprovalResult | undefined, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {

@@ -6,6 +6,8 @@
  *         id: "id"
  *     }
  */
-export interface TasksGetRequest {
+export interface TasksEventsRequest {
     id: string;
+    cursor?: string;
+    limit?: number;
 }

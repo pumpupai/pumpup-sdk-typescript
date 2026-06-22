@@ -132,24 +132,5 @@
     "engines": {
         "node": ">=18.0.0"
     },
-    "sideEffects": false,
-    "description": "Official SDK for the Pump Up agent API — human-in-the-loop approvals, elicitations, and routing for AI agents.",
-    "author": {
-        "name": "Pump Up",
-        "email": "dev@pumpup.com",
-        "url": "https://pumpup.com"
-    },
-    "homepage": "https://pumpup.com",
-    "keywords": [
-        "hitl",
-        "human-in-the-loop",
-        "ai-agents",
-        "agents",
-        "approvals",
-        "llm",
-        "sdk"
-    ],
-    "bugs": {
-        "url": "https://github.com/pumpupai/pumpup-sdk-typescript/issues"
-    }
+    "sideEffects": false
 }

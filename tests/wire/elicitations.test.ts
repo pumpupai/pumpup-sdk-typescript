@@ -14,9 +14,10 @@ describe("ElicitationsClient", () => {
             environment: server.baseUrl,
         });
         const rawRequestBody = {
-            fields: [{ id: "id", label: "label" }],
+            fields: [{ type: "DateField", id: "id", label: "label", required: true }],
             projectName: "projectName",
             summary: "Need additional details on the incident",
+            taskId: "taskId",
         };
         const rawResponseBody = { eventId: "665f1a2b3c4d5e6f7a8b9c0d" };
 
@@ -34,12 +35,15 @@ describe("ElicitationsClient", () => {
             "Idempotency-Key": "Idempotency-Key",
             fields: [
                 {
+                    type: "DateField",
                     id: "id",
                     label: "label",
+                    required: true,
                 },
             ],
             projectName: "projectName",
             summary: "Need additional details on the incident",
+            taskId: "taskId",
         });
         expect(response).toEqual(rawResponseBody);
     });
@@ -54,13 +58,14 @@ describe("ElicitationsClient", () => {
         });
         const rawRequestBody = {
             fields: [
-                { id: "x", label: "x" },
-                { id: "x", label: "x" },
+                { type: "DateField", id: "x", label: "x", required: true },
+                { type: "DateField", id: "x", label: "x", required: true },
             ],
             projectName: "x",
             summary: "x",
+            taskId: "taskId",
         };
-        const rawResponseBody = {};
+        const rawResponseBody = { code: "code", message: "message" };
 
         server
             .mockEndpoint()
@@ -77,16 +82,21 @@ describe("ElicitationsClient", () => {
                 "Idempotency-Key": "idempotencyKey",
                 fields: [
                     {
+                        type: "DateField",
                         id: "x",
                         label: "x",
+                        required: true,
                     },
                     {
+                        type: "DateField",
                         id: "x",
                         label: "x",
+                        required: true,
                     },
                 ],
                 projectName: "x",
                 summary: "x",
+                taskId: "taskId",
             });
         }).rejects.toThrow(PumpUp.BadRequestError);
     });
@@ -101,13 +111,14 @@ describe("ElicitationsClient", () => {
         });
         const rawRequestBody = {
             fields: [
-                { id: "x", label: "x" },
-                { id: "x", label: "x" },
+                { type: "DateField", id: "x", label: "x", required: true },
+                { type: "DateField", id: "x", label: "x", required: true },
             ],
             projectName: "x",
             summary: "x",
+            taskId: "taskId",
         };
-        const rawResponseBody = {};
+        const rawResponseBody = { error: "error" };
 
         server
             .mockEndpoint()
@@ -124,16 +135,21 @@ describe("ElicitationsClient", () => {
                 "Idempotency-Key": "idempotencyKey",
                 fields: [
                     {
+                        type: "DateField",
                         id: "x",
                         label: "x",
+                        required: true,
                     },
                     {
+                        type: "DateField",
                         id: "x",
                         label: "x",
+                        required: true,
                     },
                 ],
                 projectName: "x",
                 summary: "x",
+                taskId: "taskId",
             });
         }).rejects.toThrow(PumpUp.NotFoundError);
     });
@@ -148,13 +164,14 @@ describe("ElicitationsClient", () => {
         });
         const rawRequestBody = {
             fields: [
-                { id: "x", label: "x" },
-                { id: "x", label: "x" },
+                { type: "DateField", id: "x", label: "x", required: true },
+                { type: "DateField", id: "x", label: "x", required: true },
             ],
             projectName: "x",
             summary: "x",
+            taskId: "taskId",
         };
-        const rawResponseBody = {};
+        const rawResponseBody = { error: "error" };
 
         server
             .mockEndpoint()
@@ -171,16 +188,21 @@ describe("ElicitationsClient", () => {
                 "Idempotency-Key": "idempotencyKey",
                 fields: [
                     {
+                        type: "DateField",
                         id: "x",
                         label: "x",
+                        required: true,
                     },
                     {
+                        type: "DateField",
                         id: "x",
                         label: "x",
+                        required: true,
                     },
                 ],
                 projectName: "x",
                 summary: "x",
+                taskId: "taskId",
             });
         }).rejects.toThrow(PumpUp.ConflictError);
     });
@@ -195,13 +217,14 @@ describe("ElicitationsClient", () => {
         });
         const rawRequestBody = {
             fields: [
-                { id: "x", label: "x" },
-                { id: "x", label: "x" },
+                { type: "DateField", id: "x", label: "x", required: true },
+                { type: "DateField", id: "x", label: "x", required: true },
             ],
             projectName: "x",
             summary: "x",
+            taskId: "taskId",
         };
-        const rawResponseBody = {};
+        const rawResponseBody = { error: "error" };
 
         server
             .mockEndpoint()
@@ -218,16 +241,21 @@ describe("ElicitationsClient", () => {
                 "Idempotency-Key": "idempotencyKey",
                 fields: [
                     {
+                        type: "DateField",
                         id: "x",
                         label: "x",
+                        required: true,
                     },
                     {
+                        type: "DateField",
                         id: "x",
                         label: "x",
+                        required: true,
                     },
                 ],
                 projectName: "x",
                 summary: "x",
+                taskId: "taskId",
             });
         }).rejects.toThrow(PumpUp.InternalServerError);
     });
@@ -244,7 +272,7 @@ describe("ElicitationsClient", () => {
         const rawResponseBody = {
             answeredAt: "2024-01-15T09:30:00Z",
             answeredBy: "answeredBy",
-            fields: { fields: { key: "value" } },
+            fields: { key: "value" },
             requestId: "requestId",
             taskId: "taskId",
         };
@@ -272,7 +300,7 @@ describe("ElicitationsClient", () => {
             environment: server.baseUrl,
         });
 
-        const rawResponseBody = {};
+        const rawResponseBody = { code: "code", message: "message" };
 
         server
             .mockEndpoint()
@@ -298,7 +326,7 @@ describe("ElicitationsClient", () => {
             environment: server.baseUrl,
         });
 
-        const rawResponseBody = {};
+        const rawResponseBody = { error: "error" };
 
         server
             .mockEndpoint()
@@ -324,7 +352,7 @@ describe("ElicitationsClient", () => {
             environment: server.baseUrl,
         });
 
-        const rawResponseBody = {};
+        const rawResponseBody = { error: "error" };
 
         server
             .mockEndpoint()
@@ -350,7 +378,7 @@ describe("ElicitationsClient", () => {
             environment: server.baseUrl,
         });
 
-        const rawResponseBody = {};
+        const rawResponseBody = { error: "error" };
 
         server
             .mockEndpoint()

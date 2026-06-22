@@ -38,7 +38,8 @@ export class EventsClient {
      *     await client.events.agentAction({
      *         "Idempotency-Key": "Idempotency-Key",
      *         description: "Auto-classified claim as low-risk",
-     *         projectName: "projectName"
+     *         projectName: "projectName",
+     *         taskId: "taskId"
      *     })
      */
     public agentAction(
@@ -124,7 +125,8 @@ export class EventsClient {
      *     await client.events.exception({
      *         "Idempotency-Key": "Idempotency-Key",
      *         message: "OCR failed on uploaded document",
-     *         projectName: "projectName"
+     *         projectName: "projectName",
+     *         taskId: "taskId"
      *     })
      */
     public exception(
@@ -210,7 +212,8 @@ export class EventsClient {
      *     await client.events.note({
      *         "Idempotency-Key": "Idempotency-Key",
      *         message: "Customer called to confirm bank details",
-     *         projectName: "projectName"
+     *         projectName: "projectName",
+     *         taskId: "taskId"
      *     })
      */
     public note(

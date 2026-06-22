@@ -14,12 +14,7 @@ describe("UploadsClient", () => {
             environment: server.baseUrl,
         });
 
-        const rawResponseBody = {
-            contentType: "contentType",
-            id: { date: "2024-01-15T09:30:00Z", timestamp: 1 },
-            size: 1000000,
-            url: "url",
-        };
+        const rawResponseBody = { contentType: "contentType", id: "id", size: 1000000, url: "url" };
 
         server.mockEndpoint().get("/api/uploads/id").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
@@ -38,7 +33,7 @@ describe("UploadsClient", () => {
             environment: server.baseUrl,
         });
 
-        const rawResponseBody = {};
+        const rawResponseBody = { code: "code", message: "message" };
 
         server.mockEndpoint().get("/api/uploads/id").respondWith().statusCode(400).jsonBody(rawResponseBody).build();
 
@@ -58,7 +53,7 @@ describe("UploadsClient", () => {
             environment: server.baseUrl,
         });
 
-        const rawResponseBody = {};
+        const rawResponseBody = { error: "error" };
 
         server.mockEndpoint().get("/api/uploads/id").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
 
@@ -78,7 +73,7 @@ describe("UploadsClient", () => {
             environment: server.baseUrl,
         });
 
-        const rawResponseBody = {};
+        const rawResponseBody = { error: "error" };
 
         server.mockEndpoint().get("/api/uploads/id").respondWith().statusCode(409).jsonBody(rawResponseBody).build();
 
@@ -98,7 +93,7 @@ describe("UploadsClient", () => {
             environment: server.baseUrl,
         });
 
-        const rawResponseBody = {};
+        const rawResponseBody = { error: "error" };
 
         server.mockEndpoint().get("/api/uploads/id").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
 

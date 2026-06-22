@@ -53,7 +53,8 @@ const client = new PumpUpClient({ apiKey: "YOUR_API_KEY", version: "0" });
 await client.events.agentAction({
     "Idempotency-Key": "Idempotency-Key",
     description: "Auto-classified claim as low-risk",
-    projectName: "projectName"
+    projectName: "projectName",
+    taskId: "taskId"
 });
 ```
 

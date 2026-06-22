@@ -13,7 +13,11 @@ describe("EventsClient", () => {
             version: "test",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { description: "Auto-classified claim as low-risk", projectName: "projectName" };
+        const rawRequestBody = {
+            description: "Auto-classified claim as low-risk",
+            projectName: "projectName",
+            taskId: "taskId",
+        };
         const rawResponseBody = { eventId: "665f1a2b3c4d5e6f7a8b9c0d" };
 
         server
@@ -30,6 +34,7 @@ describe("EventsClient", () => {
             "Idempotency-Key": "Idempotency-Key",
             description: "Auto-classified claim as low-risk",
             projectName: "projectName",
+            taskId: "taskId",
         });
         expect(response).toEqual(rawResponseBody);
     });
@@ -42,8 +47,8 @@ describe("EventsClient", () => {
             version: "test",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { description: "x", projectName: "x" };
-        const rawResponseBody = {};
+        const rawRequestBody = { description: "x", projectName: "x", taskId: "taskId" };
+        const rawResponseBody = { code: "code", message: "message" };
 
         server
             .mockEndpoint()
@@ -60,6 +65,7 @@ describe("EventsClient", () => {
                 "Idempotency-Key": "idempotencyKey",
                 description: "x",
                 projectName: "x",
+                taskId: "taskId",
             });
         }).rejects.toThrow(PumpUp.BadRequestError);
     });
@@ -72,8 +78,8 @@ describe("EventsClient", () => {
             version: "test",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { description: "x", projectName: "x" };
-        const rawResponseBody = {};
+        const rawRequestBody = { description: "x", projectName: "x", taskId: "taskId" };
+        const rawResponseBody = { error: "error" };
 
         server
             .mockEndpoint()
@@ -90,6 +96,7 @@ describe("EventsClient", () => {
                 "Idempotency-Key": "idempotencyKey",
                 description: "x",
                 projectName: "x",
+                taskId: "taskId",
             });
         }).rejects.toThrow(PumpUp.NotFoundError);
     });
@@ -102,8 +109,8 @@ describe("EventsClient", () => {
             version: "test",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { description: "x", projectName: "x" };
-        const rawResponseBody = {};
+        const rawRequestBody = { description: "x", projectName: "x", taskId: "taskId" };
+        const rawResponseBody = { error: "error" };
 
         server
             .mockEndpoint()
@@ -120,6 +127,7 @@ describe("EventsClient", () => {
                 "Idempotency-Key": "idempotencyKey",
                 description: "x",
                 projectName: "x",
+                taskId: "taskId",
             });
         }).rejects.toThrow(PumpUp.ConflictError);
     });
@@ -132,8 +140,8 @@ describe("EventsClient", () => {
             version: "test",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { description: "x", projectName: "x" };
-        const rawResponseBody = {};
+        const rawRequestBody = { description: "x", projectName: "x", taskId: "taskId" };
+        const rawResponseBody = { error: "error" };
 
         server
             .mockEndpoint()
@@ -150,6 +158,7 @@ describe("EventsClient", () => {
                 "Idempotency-Key": "idempotencyKey",
                 description: "x",
                 projectName: "x",
+                taskId: "taskId",
             });
         }).rejects.toThrow(PumpUp.InternalServerError);
     });
@@ -162,7 +171,11 @@ describe("EventsClient", () => {
             version: "test",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { message: "OCR failed on uploaded document", projectName: "projectName" };
+        const rawRequestBody = {
+            message: "OCR failed on uploaded document",
+            projectName: "projectName",
+            taskId: "taskId",
+        };
         const rawResponseBody = { eventId: "665f1a2b3c4d5e6f7a8b9c0d" };
 
         server
@@ -179,6 +192,7 @@ describe("EventsClient", () => {
             "Idempotency-Key": "Idempotency-Key",
             message: "OCR failed on uploaded document",
             projectName: "projectName",
+            taskId: "taskId",
         });
         expect(response).toEqual(rawResponseBody);
     });
@@ -191,8 +205,8 @@ describe("EventsClient", () => {
             version: "test",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { message: "x", projectName: "x" };
-        const rawResponseBody = {};
+        const rawRequestBody = { message: "x", projectName: "x", taskId: "taskId" };
+        const rawResponseBody = { code: "code", message: "message" };
 
         server
             .mockEndpoint()
@@ -209,6 +223,7 @@ describe("EventsClient", () => {
                 "Idempotency-Key": "idempotencyKey",
                 message: "x",
                 projectName: "x",
+                taskId: "taskId",
             });
         }).rejects.toThrow(PumpUp.BadRequestError);
     });
@@ -221,8 +236,8 @@ describe("EventsClient", () => {
             version: "test",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { message: "x", projectName: "x" };
-        const rawResponseBody = {};
+        const rawRequestBody = { message: "x", projectName: "x", taskId: "taskId" };
+        const rawResponseBody = { error: "error" };
 
         server
             .mockEndpoint()
@@ -239,6 +254,7 @@ describe("EventsClient", () => {
                 "Idempotency-Key": "idempotencyKey",
                 message: "x",
                 projectName: "x",
+                taskId: "taskId",
             });
         }).rejects.toThrow(PumpUp.NotFoundError);
     });
@@ -251,8 +267,8 @@ describe("EventsClient", () => {
             version: "test",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { message: "x", projectName: "x" };
-        const rawResponseBody = {};
+        const rawRequestBody = { message: "x", projectName: "x", taskId: "taskId" };
+        const rawResponseBody = { error: "error" };
 
         server
             .mockEndpoint()
@@ -269,6 +285,7 @@ describe("EventsClient", () => {
                 "Idempotency-Key": "idempotencyKey",
                 message: "x",
                 projectName: "x",
+                taskId: "taskId",
             });
         }).rejects.toThrow(PumpUp.ConflictError);
     });
@@ -281,8 +298,8 @@ describe("EventsClient", () => {
             version: "test",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { message: "x", projectName: "x" };
-        const rawResponseBody = {};
+        const rawRequestBody = { message: "x", projectName: "x", taskId: "taskId" };
+        const rawResponseBody = { error: "error" };
 
         server
             .mockEndpoint()
@@ -299,6 +316,7 @@ describe("EventsClient", () => {
                 "Idempotency-Key": "idempotencyKey",
                 message: "x",
                 projectName: "x",
+                taskId: "taskId",
             });
         }).rejects.toThrow(PumpUp.InternalServerError);
     });
@@ -311,7 +329,11 @@ describe("EventsClient", () => {
             version: "test",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { message: "Customer called to confirm bank details", projectName: "projectName" };
+        const rawRequestBody = {
+            message: "Customer called to confirm bank details",
+            projectName: "projectName",
+            taskId: "taskId",
+        };
         const rawResponseBody = { eventId: "665f1a2b3c4d5e6f7a8b9c0d" };
 
         server
@@ -328,6 +350,7 @@ describe("EventsClient", () => {
             "Idempotency-Key": "Idempotency-Key",
             message: "Customer called to confirm bank details",
             projectName: "projectName",
+            taskId: "taskId",
         });
         expect(response).toEqual(rawResponseBody);
     });
@@ -340,8 +363,8 @@ describe("EventsClient", () => {
             version: "test",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { message: "x", projectName: "x" };
-        const rawResponseBody = {};
+        const rawRequestBody = { message: "x", projectName: "x", taskId: "taskId" };
+        const rawResponseBody = { code: "code", message: "message" };
 
         server
             .mockEndpoint()
@@ -358,6 +381,7 @@ describe("EventsClient", () => {
                 "Idempotency-Key": "idempotencyKey",
                 message: "x",
                 projectName: "x",
+                taskId: "taskId",
             });
         }).rejects.toThrow(PumpUp.BadRequestError);
     });
@@ -370,8 +394,8 @@ describe("EventsClient", () => {
             version: "test",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { message: "x", projectName: "x" };
-        const rawResponseBody = {};
+        const rawRequestBody = { message: "x", projectName: "x", taskId: "taskId" };
+        const rawResponseBody = { error: "error" };
 
         server
             .mockEndpoint()
@@ -388,6 +412,7 @@ describe("EventsClient", () => {
                 "Idempotency-Key": "idempotencyKey",
                 message: "x",
                 projectName: "x",
+                taskId: "taskId",
             });
         }).rejects.toThrow(PumpUp.NotFoundError);
     });
@@ -400,8 +425,8 @@ describe("EventsClient", () => {
             version: "test",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { message: "x", projectName: "x" };
-        const rawResponseBody = {};
+        const rawRequestBody = { message: "x", projectName: "x", taskId: "taskId" };
+        const rawResponseBody = { error: "error" };
 
         server
             .mockEndpoint()
@@ -418,6 +443,7 @@ describe("EventsClient", () => {
                 "Idempotency-Key": "idempotencyKey",
                 message: "x",
                 projectName: "x",
+                taskId: "taskId",
             });
         }).rejects.toThrow(PumpUp.ConflictError);
     });
@@ -430,8 +456,8 @@ describe("EventsClient", () => {
             version: "test",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { message: "x", projectName: "x" };
-        const rawResponseBody = {};
+        const rawRequestBody = { message: "x", projectName: "x", taskId: "taskId" };
+        const rawResponseBody = { error: "error" };
 
         server
             .mockEndpoint()
@@ -448,6 +474,7 @@ describe("EventsClient", () => {
                 "Idempotency-Key": "idempotencyKey",
                 message: "x",
                 projectName: "x",
+                taskId: "taskId",
             });
         }).rejects.toThrow(PumpUp.InternalServerError);
     });

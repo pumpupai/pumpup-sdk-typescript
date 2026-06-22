@@ -3,7 +3,7 @@
 export interface Outcome {
     note?: string | undefined;
     reasonCode?: string | undefined;
-    type?: Outcome.Type | undefined;
+    type: Outcome.Type;
 }
 
 export namespace Outcome {

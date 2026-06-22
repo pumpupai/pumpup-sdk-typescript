@@ -6,5 +6,5 @@ export interface DateTime {
     label: string;
     max?: string | undefined;
     min?: string | undefined;
-    required?: boolean | undefined;
+    required: boolean;
 }

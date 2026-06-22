@@ -6,5 +6,5 @@ export interface TextArea {
     label: string;
     maxLength?: number | undefined;
     minLength?: number | undefined;
-    required?: boolean | undefined;
+    required: boolean;
 }

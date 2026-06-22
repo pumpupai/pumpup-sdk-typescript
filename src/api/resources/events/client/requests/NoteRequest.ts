@@ -5,7 +5,8 @@
  *     {
  *         "Idempotency-Key": "Idempotency-Key",
  *         message: "Customer called to confirm bank details",
- *         projectName: "projectName"
+ *         projectName: "projectName",
+ *         taskId: "taskId"
  *     }
  */
 export interface NoteRequest {
@@ -15,5 +16,6 @@ export interface NoteRequest {
     /** The annotation text */
     message: string;
     projectName: string;
-    taskId?: string;
+    /** Target task — create one via POST /tasks first */
+    taskId: string;
 }

@@ -17,13 +17,14 @@ describe("TasksClient", () => {
         const rawResponseBody = {
             items: [
                 {
-                    attachments: [{ label: "label" }],
-                    currentState: "currentState",
+                    attachments: [{ label: "label", uploadId: "uploadId" }],
+                    currentStep: "currentStep",
+                    externalId: "externalId",
                     id: "id",
                     metadata: { key: "value" },
                     name: "name",
                     projectId: "projectId",
-                    status: "OPEN",
+                    status: "RUNNING",
                 },
             ],
         };
@@ -43,7 +44,7 @@ describe("TasksClient", () => {
             environment: server.baseUrl,
         });
 
-        const rawResponseBody = {};
+        const rawResponseBody = { code: "code", message: "message" };
 
         server.mockEndpoint().get("/api/tasks").respondWith().statusCode(400).jsonBody(rawResponseBody).build();
 
@@ -61,7 +62,7 @@ describe("TasksClient", () => {
             environment: server.baseUrl,
         });
 
-        const rawResponseBody = {};
+        const rawResponseBody = { error: "error" };
 
         server.mockEndpoint().get("/api/tasks").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
 
@@ -79,7 +80,7 @@ describe("TasksClient", () => {
             environment: server.baseUrl,
         });
 
-        const rawResponseBody = {};
+        const rawResponseBody = { error: "error" };
 
         server.mockEndpoint().get("/api/tasks").respondWith().statusCode(409).jsonBody(rawResponseBody).build();
 
@@ -97,7 +98,7 @@ describe("TasksClient", () => {
             environment: server.baseUrl,
         });
 
-        const rawResponseBody = {};
+        const rawResponseBody = { error: "error" };
 
         server.mockEndpoint().get("/api/tasks").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
 
@@ -116,13 +117,14 @@ describe("TasksClient", () => {
         });
         const rawRequestBody = { name: "Claim C-1029", projectName: "claims_refund_v1" };
         const rawResponseBody = {
-            attachments: [{ label: "label" }],
-            currentState: "currentState",
+            attachments: [{ label: "label", uploadId: "uploadId" }],
+            currentStep: "currentStep",
+            externalId: "externalId",
             id: "id",
             metadata: { key: "value" },
             name: "name",
             projectId: "projectId",
-            status: "OPEN",
+            status: "RUNNING",
         };
 
         server
@@ -152,7 +154,7 @@ describe("TasksClient", () => {
             environment: server.baseUrl,
         });
         const rawRequestBody = { name: "x", projectName: "x" };
-        const rawResponseBody = {};
+        const rawResponseBody = { code: "code", message: "message" };
 
         server
             .mockEndpoint()
@@ -182,7 +184,7 @@ describe("TasksClient", () => {
             environment: server.baseUrl,
         });
         const rawRequestBody = { name: "x", projectName: "x" };
-        const rawResponseBody = {};
+        const rawResponseBody = { error: "error" };
 
         server
             .mockEndpoint()
@@ -212,7 +214,7 @@ describe("TasksClient", () => {
             environment: server.baseUrl,
         });
         const rawRequestBody = { name: "x", projectName: "x" };
-        const rawResponseBody = {};
+        const rawResponseBody = { error: "error" };
 
         server
             .mockEndpoint()
@@ -242,7 +244,7 @@ describe("TasksClient", () => {
             environment: server.baseUrl,
         });
         const rawRequestBody = { name: "x", projectName: "x" };
-        const rawResponseBody = {};
+        const rawResponseBody = { error: "error" };
 
         server
             .mockEndpoint()
@@ -280,24 +282,16 @@ describe("TasksClient", () => {
                     requestedAt: "2024-01-15T09:30:00Z",
                     summary: "summary",
                 },
-                {
-                    eventType: "APPROVAL_REQUESTED",
-                    requestId: "requestId",
-                    requestedAt: "2024-01-15T09:30:00Z",
-                    summary: "summary",
-                },
             ],
             task: {
-                attachments: [
-                    { label: "x", uploadId: { date: "2024-01-15T09:30:00Z", timestamp: 1 } },
-                    { label: "x", uploadId: { date: "2024-01-15T09:30:00Z", timestamp: 1 } },
-                ],
-                currentState: "currentState",
+                attachments: [{ label: "label", uploadId: "uploadId" }],
+                currentStep: "currentStep",
+                externalId: "externalId",
                 id: "id",
-                metadata: { metadata: { key: "value" } },
+                metadata: { key: "value" },
                 name: "name",
                 projectId: "projectId",
-                status: "OPEN",
+                status: "RUNNING",
             },
         };
 
@@ -318,7 +312,7 @@ describe("TasksClient", () => {
             environment: server.baseUrl,
         });
 
-        const rawResponseBody = {};
+        const rawResponseBody = { code: "code", message: "message" };
 
         server.mockEndpoint().get("/api/tasks/id").respondWith().statusCode(400).jsonBody(rawResponseBody).build();
 
@@ -338,7 +332,7 @@ describe("TasksClient", () => {
             environment: server.baseUrl,
         });
 
-        const rawResponseBody = {};
+        const rawResponseBody = { error: "error" };
 
         server.mockEndpoint().get("/api/tasks/id").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
 
@@ -358,7 +352,7 @@ describe("TasksClient", () => {
             environment: server.baseUrl,
         });
 
-        const rawResponseBody = {};
+        const rawResponseBody = { error: "error" };
 
         server.mockEndpoint().get("/api/tasks/id").respondWith().statusCode(409).jsonBody(rawResponseBody).build();
 
@@ -378,12 +372,159 @@ describe("TasksClient", () => {
             environment: server.baseUrl,
         });
 
-        const rawResponseBody = {};
+        const rawResponseBody = { error: "error" };
 
         server.mockEndpoint().get("/api/tasks/id").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
             return await client.tasks.get({
+                id: "id",
+            });
+        }).rejects.toThrow(PumpUp.InternalServerError);
+    });
+
+    test("events (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PumpUpClient({
+            maxRetries: 0,
+            apiKey: "test",
+            version: "test",
+            environment: server.baseUrl,
+        });
+
+        const rawResponseBody = {
+            items: [
+                {
+                    eventType: "APPROVAL_REQUESTED",
+                    externalTraceId: "externalTraceId",
+                    id: "id",
+                    inResponseTo: "inResponseTo",
+                    owner: "AGENT",
+                    payload: { type: "Action", description: "description", metadataPatch: {} },
+                    projectId: "projectId",
+                    source: "AGENT",
+                    taskId: "taskId",
+                    timestamp: "2024-01-15T09:30:00Z",
+                    transitionFrom: "transitionFrom",
+                    transitionTo: "transitionTo",
+                },
+            ],
+            nextCursor: "nextCursor",
+        };
+
+        server
+            .mockEndpoint()
+            .get("/api/tasks/id/events")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.tasks.events({
+            id: "id",
+        });
+        expect(response).toEqual(rawResponseBody);
+    });
+
+    test("events (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PumpUpClient({
+            maxRetries: 0,
+            apiKey: "test",
+            version: "test",
+            environment: server.baseUrl,
+        });
+
+        const rawResponseBody = { code: "code", message: "message" };
+
+        server
+            .mockEndpoint()
+            .get("/api/tasks/id/events")
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tasks.events({
+                id: "id",
+            });
+        }).rejects.toThrow(PumpUp.BadRequestError);
+    });
+
+    test("events (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PumpUpClient({
+            maxRetries: 0,
+            apiKey: "test",
+            version: "test",
+            environment: server.baseUrl,
+        });
+
+        const rawResponseBody = { error: "error" };
+
+        server
+            .mockEndpoint()
+            .get("/api/tasks/id/events")
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tasks.events({
+                id: "id",
+            });
+        }).rejects.toThrow(PumpUp.NotFoundError);
+    });
+
+    test("events (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PumpUpClient({
+            maxRetries: 0,
+            apiKey: "test",
+            version: "test",
+            environment: server.baseUrl,
+        });
+
+        const rawResponseBody = { error: "error" };
+
+        server
+            .mockEndpoint()
+            .get("/api/tasks/id/events")
+            .respondWith()
+            .statusCode(409)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tasks.events({
+                id: "id",
+            });
+        }).rejects.toThrow(PumpUp.ConflictError);
+    });
+
+    test("events (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PumpUpClient({
+            maxRetries: 0,
+            apiKey: "test",
+            version: "test",
+            environment: server.baseUrl,
+        });
+
+        const rawResponseBody = { error: "error" };
+
+        server
+            .mockEndpoint()
+            .get("/api/tasks/id/events")
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tasks.events({
                 id: "id",
             });
         }).rejects.toThrow(PumpUp.InternalServerError);

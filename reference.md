@@ -16,7 +16,8 @@
 await client.events.agentAction({
     "Idempotency-Key": "Idempotency-Key",
     description: "Auto-classified claim as low-risk",
-    projectName: "projectName"
+    projectName: "projectName",
+    taskId: "taskId"
 });
 
 ```
@@ -69,7 +70,8 @@ await client.events.agentAction({
 await client.events.exception({
     "Idempotency-Key": "Idempotency-Key",
     message: "OCR failed on uploaded document",
-    projectName: "projectName"
+    projectName: "projectName",
+    taskId: "taskId"
 });
 
 ```
@@ -122,7 +124,8 @@ await client.events.exception({
 await client.events.note({
     "Idempotency-Key": "Idempotency-Key",
     message: "Customer called to confirm bank details",
-    projectName: "projectName"
+    projectName: "projectName",
+    taskId: "taskId"
 });
 
 ```
@@ -190,7 +193,8 @@ Returns immediately with an event_id; poll the result endpoint by it for the dec
 await client.approvals.create({
     "Idempotency-Key": "Idempotency-Key",
     projectName: "claims_refund_v1",
-    summary: "Refund $240 on claim C-1029"
+    summary: "Refund $240 on claim C-1029",
+    taskId: "taskId"
 });
 
 ```
@@ -227,7 +231,7 @@ await client.approvals.create({
 </dl>
 </details>
 
-<details><summary><code>client.approvals.<a href="/src/api/resources/approvals/client/Client.ts">getResult</a>({ ...params }) -> PumpUp.ApprovalResult</code></summary>
+<details><summary><code>client.approvals.<a href="/src/api/resources/approvals/client/Client.ts">getResult</a>({ ...params }) -> PumpUp.ApprovalResult | undefined</code></summary>
 <dl>
 <dd>
 
@@ -323,11 +327,14 @@ Returns immediately with an event_id; poll the result endpoint by it for the ans
 await client.elicitations.create({
     "Idempotency-Key": "Idempotency-Key",
     fields: [{
+            type: "DateField",
             id: "id",
-            label: "label"
+            label: "label",
+            required: true
         }],
     projectName: "projectName",
-    summary: "Need additional details on the incident"
+    summary: "Need additional details on the incident",
+    taskId: "taskId"
 });
 
 ```
@@ -364,7 +371,7 @@ await client.elicitations.create({
 </dl>
 </details>
 
-<details><summary><code>client.elicitations.<a href="/src/api/resources/elicitations/client/Client.ts">getResult</a>({ ...params }) -> PumpUp.ElicitationResult</code></summary>
+<details><summary><code>client.elicitations.<a href="/src/api/resources/elicitations/client/Client.ts">getResult</a>({ ...params }) -> PumpUp.ElicitationResult | undefined</code></summary>
 <dl>
 <dd>
 
@@ -735,6 +742,71 @@ await client.tasks.get({
 <dd>
 
 **request:** `PumpUp.TasksGetRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `TasksClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.tasks.<a href="/src/api/resources/tasks/client/Client.ts">events</a>({ ...params }) -> PumpUp.TaskEventsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Ascending cursor tail over the task's event log; pass nextCursor back as ?cursor= to resume. An absent cursor starts at the first event.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.tasks.events({
+    id: "id"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `PumpUp.TasksEventsRequest` 
     
 </dd>
 </dl>

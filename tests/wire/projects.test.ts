@@ -20,7 +20,7 @@ describe("ProjectsClient", () => {
                     id: "id",
                     name: "Claims Refund v1",
                     projectName: "claims_refund_v1",
-                    steps: { initialState: "initialState", steps: [{}] },
+                    steps: { initialStep: "initialStep", steps: [{ name: "name", owner: "AGENT" }] },
                 },
             ],
         };
@@ -40,7 +40,7 @@ describe("ProjectsClient", () => {
             environment: server.baseUrl,
         });
 
-        const rawResponseBody = {};
+        const rawResponseBody = { code: "code", message: "message" };
 
         server.mockEndpoint().get("/api/projects").respondWith().statusCode(400).jsonBody(rawResponseBody).build();
 
@@ -58,7 +58,7 @@ describe("ProjectsClient", () => {
             environment: server.baseUrl,
         });
 
-        const rawResponseBody = {};
+        const rawResponseBody = { error: "error" };
 
         server.mockEndpoint().get("/api/projects").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
 
@@ -76,7 +76,7 @@ describe("ProjectsClient", () => {
             environment: server.baseUrl,
         });
 
-        const rawResponseBody = {};
+        const rawResponseBody = { error: "error" };
 
         server.mockEndpoint().get("/api/projects").respondWith().statusCode(409).jsonBody(rawResponseBody).build();
 
@@ -94,7 +94,7 @@ describe("ProjectsClient", () => {
             environment: server.baseUrl,
         });
 
-        const rawResponseBody = {};
+        const rawResponseBody = { error: "error" };
 
         server.mockEndpoint().get("/api/projects").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
 
@@ -114,15 +114,12 @@ describe("ProjectsClient", () => {
 
         const rawResponseBody = {
             id: "id",
-            name: "name",
-            projectName: "projectName",
+            name: "Claims Refund v1",
+            projectName: "claims_refund_v1",
             steps: {
-                initialState: "initialState",
-                stateSchemas: { empty: true },
-                steps: [
-                    { exits: ["exits", "exits"], name: "name", owner: "AGENT" },
-                    { exits: ["exits", "exits"], name: "name", owner: "AGENT" },
-                ],
+                initialStep: "initialStep",
+                stepSchemas: { empty: true },
+                steps: [{ name: "name", owner: "AGENT" }],
             },
         };
 
@@ -143,7 +140,7 @@ describe("ProjectsClient", () => {
             environment: server.baseUrl,
         });
 
-        const rawResponseBody = {};
+        const rawResponseBody = { code: "code", message: "message" };
 
         server.mockEndpoint().get("/api/projects/id").respondWith().statusCode(400).jsonBody(rawResponseBody).build();
 
@@ -163,7 +160,7 @@ describe("ProjectsClient", () => {
             environment: server.baseUrl,
         });
 
-        const rawResponseBody = {};
+        const rawResponseBody = { error: "error" };
 
         server.mockEndpoint().get("/api/projects/id").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
 
@@ -183,7 +180,7 @@ describe("ProjectsClient", () => {
             environment: server.baseUrl,
         });
 
-        const rawResponseBody = {};
+        const rawResponseBody = { error: "error" };
 
         server.mockEndpoint().get("/api/projects/id").respondWith().statusCode(409).jsonBody(rawResponseBody).build();
 
@@ -203,7 +200,7 @@ describe("ProjectsClient", () => {
             environment: server.baseUrl,
         });
 
-        const rawResponseBody = {};
+        const rawResponseBody = { error: "error" };
 
         server.mockEndpoint().get("/api/projects/id").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
 

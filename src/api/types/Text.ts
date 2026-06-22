@@ -7,7 +7,7 @@ export interface Text {
     label: string;
     maxLength?: number | undefined;
     minLength?: number | undefined;
-    required?: boolean | undefined;
+    required: boolean;
 }
 
 export namespace Text {

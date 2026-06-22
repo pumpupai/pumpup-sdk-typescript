@@ -2,12 +2,8 @@
 
 import type * as PumpUp from "../index.js";
 
-export interface ApprovalResult {
-    authoritySnapshot?: PumpUp.AuthoritySnapshot | undefined;
-    decidedAt: string;
-    decidedBy?: string | undefined;
+export interface ApprovalDecided {
+    authority?: PumpUp.AuthoritySnapshot | undefined;
     outcome: PumpUp.Outcome;
     recommendationSnapshot?: PumpUp.ApprovalRecommendation | undefined;
-    requestId: string;
-    taskId: string;
 }
