@@ -4,5 +4,5 @@ export interface Switch {
     description?: string | undefined;
     id: string;
     label: string;
-    required?: boolean | undefined;
+    required: boolean;
 }

@@ -4,17 +4,19 @@ import type * as PumpUp from "../index.js";
 
 export interface TaskResponse {
     attachments?: PumpUp.Attachment[] | undefined;
-    currentState?: string | undefined;
-    id?: string | undefined;
+    currentStep: string;
+    externalId?: string | undefined;
+    id: string;
     metadata?: Record<string, unknown> | undefined;
-    name?: string | undefined;
-    projectId?: string | undefined;
-    status?: TaskResponse.Status | undefined;
+    name: string;
+    projectId: string;
+    status: TaskResponse.Status;
 }
 
 export namespace TaskResponse {
     export const Status = {
-        Open: "OPEN",
+        Running: "RUNNING",
+        Waiting: "WAITING",
         Closed: "CLOSED",
     } as const;
     export type Status = (typeof Status)[keyof typeof Status];

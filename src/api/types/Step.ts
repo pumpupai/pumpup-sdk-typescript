@@ -2,8 +2,8 @@
 
 export interface Step {
     exits?: string[] | undefined;
-    name?: string | undefined;
-    owner?: Step.Owner | undefined;
+    name: string;
+    owner: Step.Owner;
 }
 
 export namespace Step {

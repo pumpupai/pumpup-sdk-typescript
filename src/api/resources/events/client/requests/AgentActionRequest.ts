@@ -7,7 +7,8 @@ import type * as PumpUp from "../../../../index.js";
  *     {
  *         "Idempotency-Key": "Idempotency-Key",
  *         description: "Auto-classified claim as low-risk",
- *         projectName: "projectName"
+ *         projectName: "projectName",
+ *         taskId: "taskId"
  *     }
  */
 export interface AgentActionRequest {
@@ -21,7 +22,8 @@ export interface AgentActionRequest {
     externalTraceId?: string;
     metadataPatch?: PumpUp.MetadataPatchDto;
     projectName: string;
-    taskId?: string;
+    /** Target task — create one via POST /tasks first */
+    taskId: string;
     /** State to transition the task into; must be a declared transition */
     transitionsTo?: string;
 }

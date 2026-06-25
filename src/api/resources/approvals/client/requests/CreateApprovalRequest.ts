@@ -7,26 +7,24 @@ import type * as PumpUp from "../../../../index.js";
  *     {
  *         "Idempotency-Key": "Idempotency-Key",
  *         projectName: "claims_refund_v1",
- *         summary: "Refund $240 on claim C-1029"
+ *         summary: "Refund $240 on claim C-1029",
+ *         taskId: "taskId"
  *     }
  */
 export interface CreateApprovalRequest {
     /** Idempotency key; duplicate submissions return the original event. */
     "Idempotency-Key": string;
-    /** Files to attach to the task — upload id + display name (each id from POST /uploads) */
-    addAttachments?: PumpUp.Attachment[];
     /** Upload ids of attached files to render for this request (must already be attached to the task) */
-    attachments?: PumpUp.ObjectId[];
+    attachments?: string[];
     /** Optional link to the agent author's observability trace */
     externalTraceId?: string;
     /** Display context as a plain key→value object (order/dup-keys are the client's concern) */
     keyValueContext?: Record<string, string>;
-    metadataPatch?: PumpUp.MetadataPatchDto;
     /** Slug of an existing project (create it ahead of time) */
     projectName: string;
     recommendation?: PumpUp.ApprovalRecommendation;
     /** Human-readable summary of the action needing approval */
     summary: string;
-    /** Target task; omit to use the project's singleton task */
-    taskId?: string;
+    /** Target task — create one via POST /tasks first */
+    taskId: string;
 }

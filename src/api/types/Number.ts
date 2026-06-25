@@ -3,9 +3,9 @@
 export interface Number {
     description?: string | undefined;
     id: string;
-    integerOnly?: boolean | undefined;
+    integerOnly: boolean;
     label: string;
     max?: number | undefined;
     min?: number | undefined;
-    required?: boolean | undefined;
+    required: boolean;
 }

@@ -4,6 +4,6 @@ import type * as PumpUp from "../index.js";
 
 export interface ApprovalRecommendation {
     confidence?: number | undefined;
-    outcome?: PumpUp.Outcome | undefined;
+    outcome: PumpUp.Outcome;
     rationale?: string | undefined;
 }

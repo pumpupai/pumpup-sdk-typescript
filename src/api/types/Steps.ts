@@ -3,15 +3,7 @@
 import type * as PumpUp from "../index.js";
 
 export interface Steps {
-    initialState: string;
-    stateSchemas?: Steps.StateSchemas | undefined;
+    initialStep: string;
+    stepSchemas?: PumpUp.Document | undefined;
     steps: PumpUp.Step[];
-}
-
-export namespace Steps {
-    export interface StateSchemas {
-        empty?: boolean | undefined;
-        /** Accepts any additional properties */
-        [key: string]: any;
-    }
 }

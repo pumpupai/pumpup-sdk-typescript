@@ -3,10 +3,10 @@
 import type * as PumpUp from "../index.js";
 
 export interface ProjectResponse {
-    id?: string | undefined;
+    id: string;
     /** Human-readable display name */
-    name?: string | undefined;
+    name: string;
     /** The slug — reference the project by this on ingest */
-    projectName?: string | undefined;
-    steps?: PumpUp.Steps | undefined;
+    projectName: string;
+    steps: PumpUp.Steps;
 }

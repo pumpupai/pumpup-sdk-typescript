@@ -4,6 +4,6 @@ export interface Select {
     description?: string | undefined;
     id: string;
     label: string;
-    options?: string[] | undefined;
-    required?: boolean | undefined;
+    options: string[];
+    required: boolean;
 }

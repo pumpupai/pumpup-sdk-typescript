@@ -4,8 +4,8 @@ export interface Slider {
     description?: string | undefined;
     id: string;
     label: string;
-    max?: number | undefined;
-    min?: number | undefined;
-    required?: boolean | undefined;
+    max: number;
+    min: number;
+    required: boolean;
     step?: number | undefined;
 }

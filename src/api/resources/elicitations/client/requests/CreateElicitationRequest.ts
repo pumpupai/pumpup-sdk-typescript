@@ -7,45 +7,28 @@ import type * as PumpUp from "../../../../index.js";
  *     {
  *         "Idempotency-Key": "Idempotency-Key",
  *         fields: [{
+ *                 type: "DateField",
  *                 id: "id",
- *                 label: "label"
+ *                 label: "label",
+ *                 required: true
  *             }],
  *         projectName: "projectName",
- *         summary: "Need additional details on the incident"
+ *         summary: "Need additional details on the incident",
+ *         taskId: "taskId"
  *     }
  */
 export interface CreateElicitationRequest {
     /** Idempotency key; duplicate submissions return the original event. */
     "Idempotency-Key": string;
-    /** Files to attach to the task — upload id + display name (each id from POST /uploads) */
-    addAttachments?: PumpUp.Attachment[];
     /** Upload ids of attached files to render for this request (must already be attached to the task) */
-    attachments?: PumpUp.ObjectId[];
+    attachments?: string[];
     externalTraceId?: string;
-    fields: CreateElicitationRequest.Fields.Item[];
+    fields: PumpUp.Field[];
     keyValueContext?: Record<string, string>;
-    metadataPatch?: PumpUp.MetadataPatchDto;
     projectName: string;
     recommendation?: PumpUp.FieldBid[];
     /** Human-readable summary of what's needed */
     summary: string;
-    taskId?: string;
-}
-
-export namespace CreateElicitationRequest {
-    export type Fields = Fields.Item[];
-
-    export namespace Fields {
-        export type Item =
-            | PumpUp.DateField
-            | PumpUp.DateTime
-            | PumpUp.Multiselect
-            | PumpUp.Number
-            | PumpUp.Select
-            | PumpUp.Slider
-            | PumpUp.Switch
-            | PumpUp.Text
-            | PumpUp.TextArea
-            | PumpUp.Time;
-    }
+    /** Target task — create one via POST /tasks first */
+    taskId: string;
 }

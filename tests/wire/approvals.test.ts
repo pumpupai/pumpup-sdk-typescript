@@ -13,7 +13,11 @@ describe("ApprovalsClient", () => {
             version: "test",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { projectName: "claims_refund_v1", summary: "Refund $240 on claim C-1029" };
+        const rawRequestBody = {
+            projectName: "claims_refund_v1",
+            summary: "Refund $240 on claim C-1029",
+            taskId: "taskId",
+        };
         const rawResponseBody = { eventId: "665f1a2b3c4d5e6f7a8b9c0d" };
 
         server
@@ -30,6 +34,7 @@ describe("ApprovalsClient", () => {
             "Idempotency-Key": "Idempotency-Key",
             projectName: "claims_refund_v1",
             summary: "Refund $240 on claim C-1029",
+            taskId: "taskId",
         });
         expect(response).toEqual(rawResponseBody);
     });
@@ -42,8 +47,8 @@ describe("ApprovalsClient", () => {
             version: "test",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { projectName: "x", summary: "x" };
-        const rawResponseBody = {};
+        const rawRequestBody = { projectName: "x", summary: "x", taskId: "taskId" };
+        const rawResponseBody = { code: "code", message: "message" };
 
         server
             .mockEndpoint()
@@ -60,6 +65,7 @@ describe("ApprovalsClient", () => {
                 "Idempotency-Key": "idempotencyKey",
                 projectName: "x",
                 summary: "x",
+                taskId: "taskId",
             });
         }).rejects.toThrow(PumpUp.BadRequestError);
     });
@@ -72,8 +78,8 @@ describe("ApprovalsClient", () => {
             version: "test",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { projectName: "x", summary: "x" };
-        const rawResponseBody = {};
+        const rawRequestBody = { projectName: "x", summary: "x", taskId: "taskId" };
+        const rawResponseBody = { error: "error" };
 
         server
             .mockEndpoint()
@@ -90,6 +96,7 @@ describe("ApprovalsClient", () => {
                 "Idempotency-Key": "idempotencyKey",
                 projectName: "x",
                 summary: "x",
+                taskId: "taskId",
             });
         }).rejects.toThrow(PumpUp.NotFoundError);
     });
@@ -102,8 +109,8 @@ describe("ApprovalsClient", () => {
             version: "test",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { projectName: "x", summary: "x" };
-        const rawResponseBody = {};
+        const rawRequestBody = { projectName: "x", summary: "x", taskId: "taskId" };
+        const rawResponseBody = { error: "error" };
 
         server
             .mockEndpoint()
@@ -120,6 +127,7 @@ describe("ApprovalsClient", () => {
                 "Idempotency-Key": "idempotencyKey",
                 projectName: "x",
                 summary: "x",
+                taskId: "taskId",
             });
         }).rejects.toThrow(PumpUp.ConflictError);
     });
@@ -132,8 +140,8 @@ describe("ApprovalsClient", () => {
             version: "test",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { projectName: "x", summary: "x" };
-        const rawResponseBody = {};
+        const rawRequestBody = { projectName: "x", summary: "x", taskId: "taskId" };
+        const rawResponseBody = { error: "error" };
 
         server
             .mockEndpoint()
@@ -150,6 +158,7 @@ describe("ApprovalsClient", () => {
                 "Idempotency-Key": "idempotencyKey",
                 projectName: "x",
                 summary: "x",
+                taskId: "taskId",
             });
         }).rejects.toThrow(PumpUp.InternalServerError);
     });
@@ -164,12 +173,12 @@ describe("ApprovalsClient", () => {
         });
 
         const rawResponseBody = {
-            authoritySnapshot: { subject: "subject", tags: ["tags", "tags"] },
+            authoritySnapshot: { subject: "subject", tags: ["tags"] },
             decidedAt: "2024-01-15T09:30:00Z",
             decidedBy: "decidedBy",
             outcome: { note: "note", reasonCode: "reasonCode", type: "APPROVE" },
             recommendationSnapshot: {
-                confidence: 1,
+                confidence: 1.1,
                 outcome: { note: "note", reasonCode: "reasonCode", type: "APPROVE" },
                 rationale: "rationale",
             },
@@ -200,7 +209,7 @@ describe("ApprovalsClient", () => {
             environment: server.baseUrl,
         });
 
-        const rawResponseBody = {};
+        const rawResponseBody = { code: "code", message: "message" };
 
         server
             .mockEndpoint()
@@ -226,7 +235,7 @@ describe("ApprovalsClient", () => {
             environment: server.baseUrl,
         });
 
-        const rawResponseBody = {};
+        const rawResponseBody = { error: "error" };
 
         server
             .mockEndpoint()
@@ -252,7 +261,7 @@ describe("ApprovalsClient", () => {
             environment: server.baseUrl,
         });
 
-        const rawResponseBody = {};
+        const rawResponseBody = { error: "error" };
 
         server
             .mockEndpoint()
@@ -278,7 +287,7 @@ describe("ApprovalsClient", () => {
             environment: server.baseUrl,
         });
 
-        const rawResponseBody = {};
+        const rawResponseBody = { error: "error" };
 
         server
             .mockEndpoint()

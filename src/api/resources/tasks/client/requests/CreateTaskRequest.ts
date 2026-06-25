@@ -13,6 +13,8 @@ import type * as PumpUp from "../../../../index.js";
 export interface CreateTaskRequest {
     /** Idempotency key; duplicate submissions return the original event. */
     "Idempotency-Key": string;
+    /** Optional client correlation id (e.g. agent session/run); bookkeeping only — not unique */
+    externalId?: string;
     metadataPatch?: PumpUp.MetadataPatchDto;
     /** Human-readable case name */
     name: string;

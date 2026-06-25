@@ -2,7 +2,7 @@
 
 export interface FieldBid {
     confidence?: number | undefined;
-    fieldId?: string | undefined;
+    fieldId: string;
     rationale?: string | undefined;
     value?: unknown | undefined;
 }

@@ -1,7 +1,7 @@
 # Pump Up TypeScript Library
 
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2Fpumpupai%2Fpumpup-sdk-typescript)
-[![npm shield](https://img.shields.io/npm/v/pumpup-sdk)](https://www.npmjs.com/package/pumpup-sdk)
+[![npm shield](https://img.shields.io/npm/v/@pumpupai/pumpup-sdk)](https://www.npmjs.com/package/@pumpupai/pumpup-sdk)
 
 The Pump Up TypeScript library provides convenient access to the Pump Up APIs from TypeScript.
 
@@ -35,7 +35,7 @@ API reference documentation is available [here](https://docs.pumpup.com).
 ## Installation
 
 ```sh
-npm i -s pumpup-sdk
+npm i -s @pumpupai/pumpup-sdk
 ```
 
 ## Reference
@@ -47,13 +47,14 @@ A full reference for this library is available [here](https://github.com/pumpupa
 Instantiate and use the client with the following:
 
 ```typescript
-import { PumpUpClient } from "pumpup-sdk";
+import { PumpUpClient } from "@pumpupai/pumpup-sdk";
 
 const client = new PumpUpClient({ apiKey: "YOUR_API_KEY", version: "0" });
 await client.events.agentAction({
     "Idempotency-Key": "Idempotency-Key",
     description: "Auto-classified claim as low-risk",
-    projectName: "projectName"
+    projectName: "projectName",
+    taskId: "taskId"
 });
 ```
 
@@ -62,7 +63,7 @@ await client.events.agentAction({
 This SDK allows you to configure different environments for API requests.
 
 ```typescript
-import { PumpUpClient, PumpUpEnvironment } from "pumpup-sdk";
+import { PumpUpClient, PumpUpEnvironment } from "@pumpupai/pumpup-sdk";
 
 const client = new PumpUpClient({
     environment: PumpUpEnvironment.Default,
@@ -75,7 +76,7 @@ The SDK exports all request and response types as TypeScript interfaces. Simply 
 following namespace:
 
 ```typescript
-import { PumpUp } from "pumpup-sdk";
+import { PumpUp } from "@pumpupai/pumpup-sdk";
 
 const request: PumpUp.AgentActionRequest = {
     ...
@@ -88,7 +89,7 @@ When the API returns a non-success status code (4xx or 5xx response), a subclass
 will be thrown.
 
 ```typescript
-import { PumpUpError } from "pumpup-sdk";
+import { PumpUpError } from "@pumpupai/pumpup-sdk";
 
 try {
     await client.events.agentAction(...);
@@ -109,7 +110,7 @@ You can upload files using the client:
 ```typescript
 import { createReadStream } from "fs";
 import * as fs from "fs";
-import { PumpUpClient } from "pumpup-sdk";
+import { PumpUpClient } from "@pumpupai/pumpup-sdk";
 
 const client = new PumpUpClient({ apiKey: "YOUR_API_KEY", version: "0" });
 await client.uploads.upload({
@@ -153,7 +154,7 @@ For example, `fs.ReadStream` has a `path` property which the SDK uses to retriev
 This SDK supports direct imports of subpackage clients, which allows JavaScript bundlers to tree-shake and include only the imported subpackage code. This results in much smaller bundle sizes.
 
 ```typescript
-import { EventsClient } from 'pumpup-sdk/events';
+import { EventsClient } from '@pumpupai/pumpup-sdk/events';
 
 const client = new EventsClient({...});
 ```
@@ -163,7 +164,7 @@ const client = new EventsClient({...});
 If you would like to send additional headers as part of the request, use the `headers` request option.
 
 ```typescript
-import { PumpUpClient } from "pumpup-sdk";
+import { PumpUpClient } from "@pumpupai/pumpup-sdk";
 
 const client = new PumpUpClient({
     ...
@@ -258,7 +259,7 @@ console.log(rawResponse.headers['X-My-Header']);
 The SDK supports logging. You can configure the logger by passing in a `logging` object to the client options.
 
 ```typescript
-import { PumpUpClient, logging } from "pumpup-sdk";
+import { PumpUpClient, logging } from "@pumpupai/pumpup-sdk";
 
 const client = new PumpUpClient({
     ...

@@ -40,11 +40,14 @@ export class ElicitationsClient {
      *     await client.elicitations.create({
      *         "Idempotency-Key": "Idempotency-Key",
      *         fields: [{
+     *                 type: "DateField",
      *                 id: "id",
-     *                 label: "label"
+     *                 label: "label",
+     *                 required: true
      *             }],
      *         projectName: "projectName",
-     *         summary: "Need additional details on the incident"
+     *         summary: "Need additional details on the incident",
+     *         taskId: "taskId"
      *     })
      */
     public create(
@@ -136,14 +139,14 @@ export class ElicitationsClient {
     public getResult(
         request: PumpUp.ElicitationsGetResultRequest,
         requestOptions?: ElicitationsClient.RequestOptions,
-    ): core.HttpResponsePromise<PumpUp.ElicitationResult> {
+    ): core.HttpResponsePromise<PumpUp.ElicitationResult | undefined> {
         return core.HttpResponsePromise.fromPromise(this.__getResult(request, requestOptions));
     }
 
     private async __getResult(
         request: PumpUp.ElicitationsGetResultRequest,
         requestOptions?: ElicitationsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<PumpUp.ElicitationResult>> {
+    ): Promise<core.WithRawResponse<PumpUp.ElicitationResult | undefined>> {
         const { id } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -169,7 +172,7 @@ export class ElicitationsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as PumpUp.ElicitationResult, rawResponse: _response.rawResponse };
+            return { data: _response.body as PumpUp.ElicitationResult | undefined, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {

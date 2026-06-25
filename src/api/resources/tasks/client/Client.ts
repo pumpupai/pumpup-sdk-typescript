@@ -278,4 +278,92 @@ export class TasksClient {
 
         return handleNonStatusCodeError(_response.error, _response.rawResponse, "GET", "/api/tasks/{id}");
     }
+
+    /**
+     * Ascending cursor tail over the task's event log; pass nextCursor back as ?cursor= to resume. An absent cursor starts at the first event.
+     *
+     * @param {PumpUp.TasksEventsRequest} request
+     * @param {TasksClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link PumpUp.BadRequestError}
+     * @throws {@link PumpUp.NotFoundError}
+     * @throws {@link PumpUp.ConflictError}
+     * @throws {@link PumpUp.InternalServerError}
+     *
+     * @example
+     *     await client.tasks.events({
+     *         id: "id"
+     *     })
+     */
+    public events(
+        request: PumpUp.TasksEventsRequest,
+        requestOptions?: TasksClient.RequestOptions,
+    ): core.HttpResponsePromise<PumpUp.TaskEventsResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__events(request, requestOptions));
+    }
+
+    private async __events(
+        request: PumpUp.TasksEventsRequest,
+        requestOptions?: TasksClient.RequestOptions,
+    ): Promise<core.WithRawResponse<PumpUp.TaskEventsResponse>> {
+        const { id, cursor, limit } = request;
+        const _queryParams: Record<string, unknown> = {
+            cursor,
+            limit,
+        };
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ "X-API-Version": requestOptions?.version ?? this._options?.version ?? "0" }),
+            requestOptions?.headers,
+        );
+        const _response = await core.fetcher({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.PumpUpEnvironment.Default,
+                `api/tasks/${core.url.encodePathParam(id)}/events`,
+            ),
+            method: "GET",
+            headers: _headers,
+            queryString: core.url
+                .queryBuilder()
+                .addMany(_queryParams)
+                .mergeAdditional(requestOptions?.queryParams)
+                .build(),
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return { data: _response.body as PumpUp.TaskEventsResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new PumpUp.BadRequestError(_response.error.body as PumpUp.ApiError, _response.rawResponse);
+                case 404:
+                    throw new PumpUp.NotFoundError(_response.error.body as PumpUp.ErrorResponse, _response.rawResponse);
+                case 409:
+                    throw new PumpUp.ConflictError(_response.error.body as PumpUp.ErrorResponse, _response.rawResponse);
+                case 500:
+                    throw new PumpUp.InternalServerError(
+                        _response.error.body as PumpUp.ErrorResponse,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.PumpUpError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        return handleNonStatusCodeError(_response.error, _response.rawResponse, "GET", "/api/tasks/{id}/events");
+    }
 }

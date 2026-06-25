@@ -4,5 +4,5 @@ import type * as PumpUp from "../index.js";
 
 export interface TaskDetailResponse {
     openRequests?: PumpUp.OpenRequestDto[] | undefined;
-    task?: PumpUp.TaskResponse | undefined;
+    task: PumpUp.TaskResponse;
 }
